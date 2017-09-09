@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  db:
+    restart: always
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: freelance
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
+    ports:
+      - "3306:3306"
+  web:
+    restart: always
+    build: .
+    volumes:
+      - /usr/src/app
+      - /usr/src/app/static
+    command: bash -c "python ./freelance/manage.py migrate && python ./freelance/manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
