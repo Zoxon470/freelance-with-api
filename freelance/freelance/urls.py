@@ -9,16 +9,19 @@ Function views
 Class-based views
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
+Including another URLconfw
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from api.serializers import router
+from rest_framework.urlpatterns import format_suffix_patterns
+from users import views
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^admin/', admin.site.urls)
+    url(r'^admin/', admin.site.urls),
+    url(r'^users/$', views.UserList.as_view()),
+    url(r'^users/(?P<pk>[0-9]+)$', views.UserDetail.as_view()),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
