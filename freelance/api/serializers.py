@@ -4,7 +4,7 @@ from task.models import Task
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name="user_detail")
+    url = serializers.HyperlinkedIdentityField(view_name="user-detail")
 
     class Meta:
         model = User
@@ -12,9 +12,9 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 
 
-# class TaskSerializer(serializers.HyperlinkedModelSerializer):
-#     url = serializers.HyperlinkedIdentityField(view_name="task_detail")
-#
-#     class Meta:
-#         model = Task
-#         fields = ('id', 'url', 'title', 'description', 'money', 'assignee', 'created_by')
+class TaskSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name="task-detail")
+
+    class Meta:
+        model = Task
+        fields = ('id', 'url', 'title', 'description', 'money', 'assignee', 'created_by')
