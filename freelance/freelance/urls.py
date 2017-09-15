@@ -1,29 +1,8 @@
-"""freelance URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.10/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconfw
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
-"""
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.contrib import admin
-from rest_framework.urlpatterns import format_suffix_patterns
-from api import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/v1/users/$', views.UserList.as_view(), name='users'),
-    url(r'^api/v1/users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view(), name='user-detail'),
-    url(r'^api/v1/tasks/$', views.TaskList.as_view(), name='tasks'),
-    url(r'^api/v1/tasks/(?P<pk>[0-9]+)/$', views.TaskDetail.as_view(), name='task-detail'),
-]
+    url(r'^api/v1/', include('api.urls', namespace='api-v1')),
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+]

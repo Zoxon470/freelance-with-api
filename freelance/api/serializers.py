@@ -3,18 +3,19 @@ from users.models import User
 from task.models import Task
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name="user-detail")
-
-    class Meta:
-        model = User
-        fields = ('id', 'url', 'username', 'first_name', 'last_name', 'is_superuser', 'user_type')
-
-
-
-class TaskSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name="task-detail")
+class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ('id', 'url', 'title', 'description', 'money', 'assignee', 'created_by')
+        fields = ('id', 'title', 'description', 'money', 'assignee', 'created_by')
+
+
+class UserSerializer(serializers.ModelSerializer):
+    tasks = TaskSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name', 'user_type', 'balance', 'tasks')
+
+
+
