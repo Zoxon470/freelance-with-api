@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    assignee = serializers.SerializerMethodField()
+    assignee = serializers.SerializerMethodField(read_only=True)
     created_by = serializers.SerializerMethodField()
 
     class Meta:

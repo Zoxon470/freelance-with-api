@@ -4,11 +4,12 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     CUSTOMER = 1
-    EXECUTER = 2
+    EXECUTOR = 2
 
-    USER_TYPES = ((CUSTOMER, ('Customer')), (EXECUTER, ('Executer')),)
+    USER_TYPES = ((CUSTOMER, 'CUSTOMER'), (EXECUTOR, 'EXECUTOR'))
 
-    user_type = models.IntegerField(choices=USER_TYPES, default=EXECUTER, verbose_name='Тип пользователя')
+    name = models.CharField(blank=True, max_length=255, verbose_name='Имя пользователя')
+    user_type = models.CharField(choices=USER_TYPES, default=EXECUTOR, max_length=255, verbose_name='Тип пользователя')
     balance = models.DecimalField(decimal_places=2, max_digits=7, default=0, verbose_name='Баланс')
 
     def __str__(self):
