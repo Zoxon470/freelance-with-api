@@ -11,33 +11,13 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    assignee = serializers.SerializerMethodField(read_only=True)
-    created_by = serializers.SerializerMethodField()
+    assignee_info = UserSerializer(read_only=True, source='assignee')
+    assignee = serializers.IntegerField(allow_null=True, source='assignee_id')
+    created_by_info = UserSerializer(read_only=True, source='created_by')
+    created_by = serializers.IntegerField(allow_null=True, source='created_by_id')
 
     class Meta:
         model = Task
-        fields = ('id', 'title', 'description', 'money', 'assignee', 'created_by')
-
-    def get_assignee(self, obj):
-        return {
-            'id': obj.assignee.id,
-            'username': obj.assignee.username,
-            'first_name': obj.assignee.first_name,
-            'last_name': obj.assignee.last_name,
-            'user_type': obj.assignee.user_type,
-            'balance': obj.assignee.balance
-        }
-
-    def get_created_by(self, obj):
-        return {
-            'id': obj.created_by.id,
-            'username': obj.created_by.username,
-            'first_name': obj.created_by.first_name,
-            'last_name': obj.created_by.last_name,
-            'user_type': obj.created_by.user_type,
-            'balance': obj.created_by.balance,
-        }
-
-
+        fields = ('id', 'title', 'description', 'cost', 'assignee', 'assignee_info', 'created_by', 'created_by_info',)
 
 

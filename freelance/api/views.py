@@ -1,4 +1,6 @@
 from rest_framework import viewsets
+
+
 from users.models import User
 from task.models import Task
 from .serializers import UserSerializer, TaskSerializer
@@ -17,3 +19,6 @@ class CustomerViewSet(viewsets.ModelViewSet):
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+
+
+
